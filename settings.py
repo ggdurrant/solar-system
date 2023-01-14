@@ -1,16 +1,16 @@
 # Settings and constants for the simulation
 
 # width and height of pygame screen
-WIDTH = 1800
-HEIGHT = 1100
+WIDTH = 1400
+HEIGHT = 800
 
 # pygame fps
-FPS = 60
+FPS = 100
 
 # gravitational constant
-G = 3
+G = 1
 # starting planet velocity multiplier
-SPEED = 6
+SPEED = 5
 # density multiplier for sun mass
 DENSITY = 10
 

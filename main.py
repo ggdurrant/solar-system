@@ -13,7 +13,7 @@ def main():
     running = True
 
     # setup universe with starting number of planets
-    universe = Universe(8)
+    universe = Universe(12)
 
     # redraw the display and planets
     def redraw_window():
@@ -23,8 +23,8 @@ def main():
         # draw the planet or orbit for each planet in universe
         for planet in universe.planets:
             # planet.init_vel(-1,1)
-            # planet.draw(game_display)
-            planet.draw_orbit(game_display)
+            planet.draw(game_display)
+            # planet.draw_orbit(game_display)
         # draw sun
         universe.draw_sun(game_display)
 
