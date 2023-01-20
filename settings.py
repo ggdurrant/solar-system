@@ -7,10 +7,14 @@ HEIGHT = 800
 # pygame fps
 FPS = 100
 
+# simulate to avoid drawing every frame
+SIMULATE = False
+
 # gravitational constant
-G = 1
+# G = .1
+G = .01
 # starting planet velocity multiplier
-SPEED = 5
+SPEED = 3
 # density multiplier for sun mass
 DENSITY = 10
 

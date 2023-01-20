@@ -10,21 +10,29 @@ class Universe:
 
     planets = []
     sun = None
+    sun_radius = 30
+    sun_mass = 50000
+    sun_pos = (WIDTH/2, HEIGHT/2)
 
     # create random planets from argument and a stationary sun
     def __init__(self, num_planets):
         for i in range(num_planets):
-            self.planets.append(Planet(random.randint(10, WIDTH-10), random.randint(10, HEIGHT-10), 10))
+            self.planets.append(Planet(random.randint(10, WIDTH-10), random.randint(10, HEIGHT-10), 5))
         # self.sun = Planet(WIDTH/2, HEIGHT/2, 30, m=50*DENSITY, c=YELLOW)
-        self.sun = Planet(WIDTH/2, HEIGHT/2, 30, m=200, c=YELLOW)
+        self.sun = Planet(self.sun_pos[0], self.sun_pos[1], self.sun_radius, m=self.sun_mass, c=YELLOW)
         self.sun.init_vel(0,0)
         self.sun.surface.set_colorkey((0,255,0))
         self.sun.surface.set_alpha(200)
-        pygame.draw.circle(self.sun.surface, YELLOW, (WIDTH/2-15, HEIGHT/2-15), 30)
+        pygame.draw.circle(self.sun.surface, YELLOW, (self.sun_pos[0]-self.sun_radius/2, self.sun_pos[1]-self.sun_radius/2), 30)
+        pygame.draw.circle(self.sun.surface, RED, (WIDTH/2-15, HEIGHT/2-15),1)
 
     # draw sun 
     def draw_sun(self, window):
         window.blit(self.sun.surface, (0,0))
+
+    def add_planet(self, x, y, dx, dy, r, m, c):
+        new_planet = Planet(x, y, dx, dy, r, m, c)
+        self.planets.append(new_planet)
         
     # calculate gravity and assign forces to each planet in system
     # just calculate gravity via the sun's mass for now
@@ -40,11 +48,15 @@ class Universe:
 
                 local_dist = math.sqrt((body.pos[0] - planet.pos[0])**2 + (body.pos[1] - planet.pos[1])**2)
                 local_gravity = norm*G*body.mass/(local_dist**2)
-                if abs(local_gravity[0]) > .01:
-                    local_gravity[0] = local_gravity[0]*.01
-                if abs(local_gravity[1]) > .01:
-                    local_gravity[1] = local_gravity[1]*.01
+                # if abs(local_gravity[0]) > .01:
+                #     # local_gravity[0] = local_gravity[0]*.01
+                #     planet.vel += local_gravity/2
+                # if abs(local_gravity[1]) > .01:
+                #     # local_gravity[1] = local_gravity[1]*.01
+                #     planet.vel += local_gravity/2
                 planet.vel += local_gravity
+                if local_dist < 10:
+                    pass
 
             # get the normalized vector of gravitational pull
             vector = self.sun.pos - planet.pos
